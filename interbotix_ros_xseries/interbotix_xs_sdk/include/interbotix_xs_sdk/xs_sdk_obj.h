@@ -316,6 +316,28 @@ private:
   /// @brief ROS Timer that reads current states from all the motors and publishes them to the joint_states topic
   /// @param e - TimerEvent message [unused]
   void robot_update_joint_states(const ros::TimerEvent &e);
+
+  struct CompliantControlConfig
+  {
+    double effort_limit_lower;
+    double effort_limit_upper;
+    double p_gain;
+    double clip_control_limit;
+  };
+
+  // Custom joint name to CompliantControlConfig
+  std::unordered_map<std::string, CompliantControlConfig> compliant_control_configs;
+
+  /// @brief the compliant control if the config is provided
+  void robot_init_compliant_control(YAML::Node compliant_config);
+
+  /// @brief get the compliant offsets from the compliant control config if it is enabled
+  /// @returns a map of joint names to compliant offsets
+  std::map<std::string, double> get_compliant_offsets();
+
+  /// @brief apply the compliant control to the motor if compliant control is enabled
+  void apply_compliant_offsets(std::map<std::string, double> compliant_offsets);
+
 };
 
 #endif
