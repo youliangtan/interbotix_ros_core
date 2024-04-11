@@ -901,13 +901,13 @@ void InterbotixRobotXS::robot_sub_command_group(const interbotix_xs_msgs::JointG
     // with custom PID gains
     // https://emanual.robotis.com/docs/en/dxl/x/xm430-w350/
     std::vector<int32_t> gains = {
-      600, // kp_pos NOTE: default value is 900
+      700, // kp_pos NOTE: default value is 800
       0,   // ki_pos
       0,   // kd_pos
       0,   // k1
       0,   // k2
-      0,   // kp_vel
-      0    // ki_vel
+      100,   // kp_vel
+      1920,    // ki_vel
     };
     robot_set_motor_pid_gains("group", msg.name, gains);
   }
