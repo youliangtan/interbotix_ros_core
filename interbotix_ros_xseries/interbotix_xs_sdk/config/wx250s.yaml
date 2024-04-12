@@ -11,8 +11,7 @@ joint_state_publisher:
 groups:
   arm: [waist, shoulder, elbow, forearm_roll, wrist_angle, wrist_rotate]
 
-
-# experimentation mode
+# experimentation mode (YL)
 compliant_control:
   waist:
     lower_limit: -700.0

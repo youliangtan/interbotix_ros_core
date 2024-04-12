@@ -258,19 +258,17 @@ void InterbotixRobotXS::robot_wait_for_joint_states()
 
 void InterbotixRobotXS::robot_sub_command_group(const JointGroupCommand::SharedPtr msg)
 {
-  auto compliant_offsets = get_compliant_offsets();
-
   // NOTE: YOU LIANG custom impl for joint based compliant control
   // with custom PID gains
   // https://emanual.robotis.com/docs/en/dxl/x/xm430-w350/
   std::vector<int32_t> gains = {
-    600, // kp_pos NOTE: default value is 900
+    700, // kp_pos NOTE: default value is 800
     0,   // ki_pos
     0,   // kd_pos
     0,   // k1
     0,   // k2
-    0,   // kp_vel
-    0    // ki_vel
+    100,   // kp_vel
+    1920,    // ki_vel
   };
   xs_driver->set_motor_pid_gains(cmd_type::GROUP, msg->name, gains);
   xs_driver->write_commands(msg->name, msg->cmd);
